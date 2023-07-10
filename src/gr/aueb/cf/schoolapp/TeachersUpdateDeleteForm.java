@@ -188,6 +188,32 @@ public class TeachersUpdateDeleteForm extends JFrame {
 		updateBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		updateBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String sql = "UPDATE TEACHERS SET FIRSTNAME = ?, LASTNAME = ? WHERE ID = ?";
+				Connection connection = Menu.getConnection();
+				try (PreparedStatement ps = connection.prepareStatement(sql)) {	
+					String firstname = firstnameTxt.getText().trim();
+					String lastname = lastnameTxt.getText().trim();
+					String id = idTxt.getText();
+					
+					if (firstname.equals("") || lastname.equals("")) {
+						JOptionPane.showMessageDialog(null, "Empty firstname / lastname", "Input Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					ps.setString(1, firstname);
+					ps.setString(2, lastname);
+					ps.setInt(3,  Integer.parseInt(id));
+					
+					int n = ps.executeUpdate();
+					
+					if (n > 0) {
+						JOptionPane.showMessageDialog(null, "Successful Update", "Update", JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(null, "Update Error", "Update", JOptionPane.ERROR_MESSAGE);
+					}		
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				} 
 			}
 		});
 		updateBtn.setBounds(99, 225, 100, 46);
