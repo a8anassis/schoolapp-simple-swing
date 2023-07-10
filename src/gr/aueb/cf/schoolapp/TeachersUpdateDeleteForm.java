@@ -194,6 +194,28 @@ public class TeachersUpdateDeleteForm extends JFrame {
 		contentPane.add(updateBtn);
 		
 		JButton deleteBtn = new JButton("Delete");
+		deleteBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String sql = "DELETE FROM TEACHERS WHERE ID = ?";
+				
+				try {
+					Connection connection = Menu.getConnection();
+					PreparedStatement ps = connection.prepareStatement(sql);
+					ps.setInt(1, Integer.parseInt(idTxt.getText()));
+					
+					
+					int response = JOptionPane.showConfirmDialog(null, "Είστε σίγουρος", "Warning", JOptionPane.YES_NO_OPTION);
+					if (response == JOptionPane.YES_OPTION) {
+						int n = ps.executeUpdate();
+						JOptionPane.showMessageDialog(null, n + " rows affected", "Delete", JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						return;
+					}
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}	
+			}
+		});
 		deleteBtn.setForeground(Color.BLUE);
 		deleteBtn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		deleteBtn.setBounds(202, 225, 100, 46);
