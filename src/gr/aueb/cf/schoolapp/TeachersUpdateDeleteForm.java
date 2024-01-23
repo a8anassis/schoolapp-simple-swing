@@ -189,8 +189,10 @@ public class TeachersUpdateDeleteForm extends JFrame {
 		updateBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String sql = "UPDATE TEACHERS SET FIRSTNAME = ?, LASTNAME = ? WHERE ID = ?";
-				Connection connection = Menu.getConnection();
-				try (PreparedStatement ps = connection.prepareStatement(sql)) {	
+				
+				try {	
+					Connection connection = Menu.getConnection();
+					PreparedStatement ps = connection.prepareStatement(sql);
 					String firstname = firstnameTxt.getText().trim();
 					String lastname = lastnameTxt.getText().trim();
 					String id = idTxt.getText();
