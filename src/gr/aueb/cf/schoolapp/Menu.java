@@ -3,6 +3,9 @@ package gr.aueb.cf.schoolapp;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import gr.aueb.cf.schoolapp.util.DBUtil;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -27,13 +30,15 @@ public class Menu extends JFrame {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				
-				String username = "schooldbuser";
-				String password = System.getenv("SCHOOL_DB_USER_PASSWD");
-				String url = "jdbc:mysql://localhost:3306/schooldb?serverTimezone=UTC";
-				
+//				String username = "schooldbuser";
+//				String password = System.getenv("SCHOOL_DB_USER_PASSWD");
+//				String url = "jdbc:mysql://localhost:3306/schooldb?serverTimezone=UTC";
+//				
 				try {
 					//Class.forName("com.mysql.cj.jdbc.Driver");
-					connection = DriverManager.getConnection(url, username, password);
+					//connection = DriverManager.getConnection(url, username, password);
+					connection = DBUtil.getConnection();
+					
 					System.out.println("Connection established");
 				} catch (SQLException e1) {
 					e1.printStackTrace();

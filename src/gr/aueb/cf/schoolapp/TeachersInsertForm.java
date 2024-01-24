@@ -1,7 +1,5 @@
 package gr.aueb.cf.schoolapp;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -67,6 +65,7 @@ public class TeachersInsertForm extends JFrame {
 		contentPane.add(lastnameTxt);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(240, 240, 240));
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel.setBounds(24, 11, 325, 156);
 		contentPane.add(panel);
@@ -74,7 +73,7 @@ public class TeachersInsertForm extends JFrame {
 		JButton insertBtn = new JButton("Εισαγωγή");
 		insertBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			    String sql = "INSERT INTO TEACHERS (FIRSTNAME, LASTNAME) VALUES (?, ?)";
+			    
 			    
 			    try {
 			    	String firstname = firstnameTxt.getText().trim();
@@ -85,6 +84,7 @@ public class TeachersInsertForm extends JFrame {
 			    		return;
 			    	}
 			    	
+			    	String sql = "INSERT INTO TEACHERS (FIRSTNAME, LASTNAME) VALUES (?, ?)";	
 			    	Connection connection = Menu.getConnection();
 			    	PreparedStatement ps = connection.prepareStatement(sql);
 			    	ps.setString(1, firstname);
